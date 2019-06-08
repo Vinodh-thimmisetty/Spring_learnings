@@ -38,3 +38,10 @@ hs_err_pid*
 # Maven
 log/
 target/
+.factorypath
+.gitattributes
+*.md
+*.cmd
+.mvn/wrapper/maven-wrapper.properties
+mvnw
+.mvn/wrapper/MavenWrapperDownloader.java
