@@ -2,6 +2,7 @@ package com.pluralsight.mvc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pluralsight.mvc.model.Activity;
 import com.pluralsight.mvc.model.Exercise;
+import com.pluralsight.mvc.model.Goal;
 import com.pluralsight.mvc.service.ExerciseService;
 
 @Controller
@@ -29,7 +31,9 @@ public class MinutesController {
 	}
 
 	@PostMapping(value = "/addMinutes")
-	public String addMinutes(@Valid @ModelAttribute("exercise") Exercise exercise, BindingResult result) {
+	public String addMinutes(@Valid @ModelAttribute("exercise") Exercise exercise,
+			BindingResult result,
+			HttpSession session) {
 
 		System.out.println("exercise: " + exercise.getMinutes());
 		System.out.println("exercise activity: " + exercise.getActivity());
@@ -37,7 +41,9 @@ public class MinutesController {
 		if (result.hasErrors()) {
 			return "addMinutes";
 		}
-
+		Goal g = (Goal) session.getAttribute("goal");
+		exercise.setGoal(g);
+		exerciseService.saveExercise(exercise);
 		return "addMinutes";
 	}
 

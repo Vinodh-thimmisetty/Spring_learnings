@@ -1,8 +1,11 @@
 package com.pluralsight.mvc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,10 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.pluralsight.mvc.model.Goal;
+import com.pluralsight.mvc.model.GoalReport;
+import com.pluralsight.mvc.service.GoalService;
 
 @Controller
 @SessionAttributes("goal")
 public class GoalController {
+	
+	@Autowired
+	private GoalService goalService;
 
 	@GetMapping("addGoal")
 	public String addGoal(Model model) {
@@ -37,7 +45,23 @@ public class GoalController {
 			return "addGoal";
 		}
 
+		goalService.saveGoal(goal);
+
 		return "redirect:/";
+	}
+	
+	@GetMapping("/getGoals")
+	public String getGoals(Model model) {
+		List<Goal> goals = goalService.findAllGoals();
+		model.addAttribute("goals", goals);
+		return "getGoals";
+	}
+	
+	@GetMapping("/getGoalReports")
+	public String getGoalReports(Model model) {
+		List<GoalReport> goalReports = goalService.goalReports();
+		model.addAttribute("goalReports", goalReports);
+		return "getGoalReports";
 	}
 
 }
