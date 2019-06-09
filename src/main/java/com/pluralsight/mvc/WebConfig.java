@@ -21,7 +21,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@Import(JDBCConfig.class)
+//@Import(JDBCConfig.class)
+@Import(JPAConfig.class)
 @ComponentScan(basePackages = { "com.pluralsight.mvc" })
 public class WebConfig implements WebMvcConfigurer {
 
@@ -40,7 +41,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/csss/**").addResourceLocations("/views/css/");
 	}
 
-	// Allow JSP files to read propety files
+	// Allow JSP files to read property files
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();

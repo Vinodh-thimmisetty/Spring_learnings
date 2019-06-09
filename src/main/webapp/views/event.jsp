@@ -23,25 +23,29 @@
 	margin: 16px;
 }
 </style>
-
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <body>
+
 	<c:set var="req" value="${pageContext.request}" />
 	<c:set var="url">${req.requestURL}</c:set>
 	<c:set var="uri" value="${req.requestURI}" />
 	<c:set var="contextPath">${req.contextPath}</c:set>
-
-	<p>The contextPath is: ${contextPath}. an Full uri :: ${uri}</p>
-
-	<form:form modelAttribute="event" action="${contextPath}/event">
-		<form:errors path="*" cssClass="errorblock" element="div" />
-		<label for="textInput1"> Enter minutes:</label>
-		<form:input path="name" cssErrorClass="error" />
-		<form:errors path="name" cssClass="error" />
+	<div class="container jumbotron">
+		<p>The contextPath is: ${contextPath}. and Full uri :: ${uri}</p>
 		<br />
-		<input type="submit" class="btn" value="Enter event" />
-	</form:form>
-
+		<br />
+		<form:form modelAttribute="event" action="${contextPath}/event">
+			<form:errors path="*" cssClass="errorblock" element="div" />
+			<label for="textInput1"> Enter minutes:</label>
+			<form:input path="name" cssErrorClass="error" />
+			<form:errors path="name" cssClass="error" />
+			<br />
+			<input type="submit" class="btn btn-primary" value="Enter event »" />
+		</form:form>
+	</div>
 
 
 </body>
