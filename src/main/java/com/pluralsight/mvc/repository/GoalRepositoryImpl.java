@@ -20,7 +20,7 @@ public class GoalRepositoryImpl implements GoalRepository {
 	public Goal saveGoal(Goal goal) {
 		entityManager.persist(goal);
 		entityManager.flush();
-		return null;
+		return goal;
 	}
 
 	@Override

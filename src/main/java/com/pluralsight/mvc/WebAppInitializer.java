@@ -10,8 +10,9 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
-
+/*
 public class WebAppInitializer implements WebApplicationInitializer {
 
 	@Override
@@ -24,6 +25,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
 				new OpenEntityManagerInViewFilter());
 		filter.setInitParameter("some-key", "some-value");
 		filter.addMappingForUrlPatterns(null, true, "/*");
+
+		FilterRegistration.Dynamic securityFilter = servletContext.addFilter("securityFilterChain",
+				new DelegatingFilterProxy());
+		securityFilter.setInitParameter("some-key-1", "some-value-1");
+		securityFilter.addMappingForUrlPatterns(null, true, "/*");
 
 		ServletRegistration.Dynamic dispatcherServlet = servletContext.addServlet("DispatcherServlet",
 				new DispatcherServlet(webApplicationContext));
@@ -39,3 +45,4 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	}
 
 }
+*/
