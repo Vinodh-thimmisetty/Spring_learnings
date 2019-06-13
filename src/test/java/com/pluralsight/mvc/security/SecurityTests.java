@@ -1,7 +1,14 @@
 package com.pluralsight.mvc.security;
 
-public class SecurityTests {
-	
-	
+import org.junit.Test;
+
+import junit.framework.TestCase;
+
+public class SecurityTests extends TestCase {
+
+	public void md5_test() {
+		String pwd = "secret";
+
+	}
 
 }

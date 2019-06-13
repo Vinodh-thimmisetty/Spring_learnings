@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,21 @@ body {
 	<div class="container jumbotron">
 		<div class="hero-unit">
 			<div>
-				<h1>Welcome to Fitness Tracker!</h1>
+				<h1>
+					Welcome to Fitness Tracker!
+					<sec:authentication property="name" />
+				</h1>
 				<p>To get started, we need to enter a goal for what we want to
 					exercise for today.</p>
 			</div>
 			<a class="btn btn-primary"
-				href="${pageContext.request.contextPath}/addGoal"> Add Goal » </a> <a
-				class="btn btn-primary"
+				href="${pageContext.request.contextPath}/addGoal"> Add Goal » </a>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a class="btn btn-secondary"
+					href="${pageContext.request.contextPath}/addGoal"> Edit Goal »
+				</a>
+			</sec:authorize>
+			<a class="btn btn-primary"
 				href="${pageContext.request.contextPath}/addMinutes"> Add
 				Exercise Minutes » </a>
 		</div>
@@ -51,6 +60,7 @@ body {
 				href="${pageContext.request.contextPath}/attende"> Add Attende »</a>
 		</div>
 		<div></div>
+		<br /> <a class="btn btn-danger" href="logout">Logout » </a>
 	</div>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
