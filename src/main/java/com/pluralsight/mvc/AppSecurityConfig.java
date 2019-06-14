@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.aspectj.weaver.tools.Trace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,7 +29,7 @@ import com.pluralsight.mvc.service.AppUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @ComponentScan(basePackageClasses = { AppUserDetailsService.class, AppUserRepository.class,
 		CustomAuthenticationEntryPoint.class })
 //@EnableJpaRepositories(basePackageClasses = AppUserRepository.class)
@@ -63,16 +64,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 // 				.antMatchers("/**").permitAll()
 				.anyRequest().authenticated().and()
 //				.httpBasic().authenticationEntryPoint(authenticationEntryPoint);
-				.formLogin()
-					.loginPage("/login").defaultSuccessUrl("/").failureUrl("/loginFailed").permitAll()
-				.and()
-					.logout().logoutUrl("/logout").invalidateHttpSession(true).permitAll();
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/loginFailed").permitAll().and()
+				.logout().logoutUrl("/logout").invalidateHttpSession(true).permitAll();
 		// set permitAll for all URLs associated with Form Login
 
 //		http.formLogin().loginProcessingUrl("/login").and().logout();
-		
+
 		http.exceptionHandling().accessDeniedPage("/errro403");
-		
+
 		http.addFilterBefore(new Filter() {
 
 			@Override
